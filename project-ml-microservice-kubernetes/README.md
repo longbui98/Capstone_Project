@@ -33,6 +33,8 @@ python3 -m pip install --user virtualenv
 # Use a command similar to this one:
 python3 -m virtualenv --python=<path-to-Python3.7> .devops
 source .devops/bin/activate
+#run setup_env.sh to install Hadolint and minukube
+./setup_env.sh
 ```
 * Run `make install` to install the necessary dependencies
 
