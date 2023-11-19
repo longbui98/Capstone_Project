@@ -65,7 +65,7 @@ def predict():
     clf = joblib.load("./model_data/boston_housing_prediction.joblib")
     prediction = list(clf.predict(scaled_payload))
     # TO DO:  Log the output prediction value
-    LOG.info(f"prediction value: \n{prediction}")
+    LOG.info(f"Output prediction: \n{prediction}")
     return jsonify({'prediction': prediction})
 
 if __name__ == "__main__":
