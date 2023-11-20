@@ -1,4 +1,4 @@
-FROM python:3.9.6
+FROM python:3.7
 
 ## Step 1:
 # Create a working directory
