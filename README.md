@@ -1,5 +1,5 @@
-[![CircleCI](https://circleci.com/gh/circleci/circleci-docs.svg?style=svg)]
-(https://app.circleci.com/pipelines/github/longbui98/DevOps_Microservices/1/workflows/c24d7998-7a4b-4e14-9e35-88235e237a5b)
+![CircleCI](https://circleci.com/gh/circleci/circleci-docs.svg?style=svg)]
+https://app.circleci.com/pipelines/github/longbui98/DevOps_Microservices/1/workflows/c24d7998-7a4b-4e14-9e35-88235e237a5b
 
 ## Project Overview
 
