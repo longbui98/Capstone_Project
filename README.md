@@ -1,5 +1,5 @@
-https://circleci.com/gh/longbui98/DevOps_Microservices
-
+##LONGBQ 11-21-2023
+[![CircleCI](https://dl.circleci.com/status-badge/img/gh/longbui98/DevOps_Microservices/tree/master.svg?style=svg)](https://dl.circleci.com/status-badge/redirect/gh/longbui98/DevOps_Microservices/tree/master)
 ## Project Overview
 
 In this project, you will apply the skills you have acquired in this course to operationalize a Machine Learning Microservice API. 
