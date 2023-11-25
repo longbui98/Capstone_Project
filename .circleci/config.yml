@@ -55,6 +55,10 @@ jobs:
             command: |
               docker build --tag=api .
               docker image ls
+        - run: 
+            name: Create ECS
+            command: |
+              aws ecs create-cluster --cluster-name capstone-cluster
         - run:
             name: Push image to ECR
             command: |
@@ -70,11 +74,3 @@ jobs:
               docker build -t $PROJECT_NAME .
               docker tag $PROJECT_NAME:latest 717010040964.dkr.ecr.us-east-1.amazonaws.com/$PROJECT_NAME:latest
               docker push 717010040964.dkr.ecr.us-east-1.amazonaws.com/$PROJECT_NAME:latest
-        - run: 
-            name: Deploy image to ECS
-            command: |
-              aws ecs create-cluster --cluster-name capstone_cluster
-              aws ecs list-clusters
-              touch update_task.json
-              
-        
