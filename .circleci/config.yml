@@ -48,7 +48,6 @@ jobs:
         - run:
             name: Docker build
             command: |
-              service docker status
               docker build --tag=api .
               docker image ls
         - run: 
