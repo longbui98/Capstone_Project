@@ -46,8 +46,7 @@ jobs:
               apk add --no-cache \
               docker
               apk add --no-cache docker
-              dockerd --host=unix:///var/run/docker.sock --foreground &
-              sleep 5
+              dockerd --host=unix:///var/run/docker.sock
         - run:
             name: Docker build
             command: |
