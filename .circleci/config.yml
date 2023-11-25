@@ -45,6 +45,9 @@ jobs:
               apk add openrc
               apk add --no-cache \
               docker
+              apk add --no-cache docker
+              dockerd --host=unix:///var/run/docker.sock --foreground &
+              sleep 5
         - run:
             name: Docker build
             command: |
