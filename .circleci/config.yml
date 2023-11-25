@@ -50,7 +50,6 @@ jobs:
             name: Docker build
             command: |
               service docker status
-              sudo usermod -aG docker cap-user
               docker build --tag=api .
               docker image ls
         - run: 
