@@ -44,8 +44,7 @@ jobs:
               apk add --update aws-cli
               apk add openrc
               apk add --no-cache \
-              docker \
-              && rc-update add docker boot
+              docker
         - run:
             name: Docker build
             command: |
