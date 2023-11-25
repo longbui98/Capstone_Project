@@ -73,5 +73,8 @@ jobs:
         - run: 
             name: Deploy image to ECS
             command: |
+              aws ecs create-cluster --cluster-name capstone_cluster
+              aws ecs list-clusters
               touch update_task.json
+              
         
