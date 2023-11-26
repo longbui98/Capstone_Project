@@ -53,7 +53,7 @@ jobs:
       - aws-cli/setup
       - run:
           name: Create ECR and publish docker image to ECR
-          command: bash bash_scipt/create_ecr.sh
+          command: bash bash_script/create_ecr.sh
 
   create_kubernets_cluster:
     docker:
