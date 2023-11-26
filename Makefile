@@ -15,6 +15,17 @@ install:
 	pip install --upgrade pip &&\
 		pip install -r requirements.txt
 
+install_kubernetes_utility:
+	# install eksctl
+	curl --silent --location "https://github.com/weaveworks/eksctl/releases/latest/download/eksctl_linux_amd64.tar.gz" | tar xz -C /tmp
+	mv /tmp/eksctl /.eksctl
+	chmod +x /.eksctl
+	
+	# install kubectl
+	curl -LO "https://dl.k8s.io/release/v1.23.6/bin/linux/amd64/kubectl"
+	install -o root -g root -m 0755 kubectl /.kubectl
+	chmod +x /.kubectl
+	
 test:
 	# Additional, optional, tests could go here
 	#python -m pytest -vv --cov=myrepolib tests/*.py
