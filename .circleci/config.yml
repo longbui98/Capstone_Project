@@ -59,10 +59,10 @@ jobs:
       - setup_remote_docker
       - aws-cli/setup
       - attach_workspace:
-          at: ~/
+          at: /tmp/workspace
       - run:
           name: Load image from archive
-          command: docker load -i ./api_image.tar
+          command: docker load -i /tmp/workspace/api_image.tar
       - run:
           name: Create ECR and publish docker image to ECR
           command: bash bash_script/create_ecr.sh
