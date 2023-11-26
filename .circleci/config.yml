@@ -43,7 +43,6 @@ jobs:
           name: Create docker image
           command: |
             docker build -t longbui-api .
-  
   publish_docker_image:
     docker:
       - image: cimg/base:stable
