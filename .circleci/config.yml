@@ -78,7 +78,7 @@ jobs:
           command: make install_kubernetes_utility
       - run:
           name: Create cluster
-          command: bash bash_scipt/create_cluster.sh
+          command: bash bash_script/create_cluster.sh
             
   deploy-app:
     docker:
