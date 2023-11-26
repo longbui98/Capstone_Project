@@ -79,7 +79,18 @@ jobs:
       - run:
           name: Create cluster
           command: bash bash_scipt/create_cluster.sh
-              
+            
+  deploy-app:
+    docker:
+      - image: python:3.7.3-stretch
+    steps:
+      - checkout
+      - aws-cli/setup
+      - run:
+          name: Deploy application to ECS
+          command: |
+            aws eks update-kubeconfig --region us-east-1 --name capstone-project
+            bash shell_scripts/deploy_app.sh
 workflows:
   default:
     jobs:
@@ -90,3 +101,5 @@ workflows:
           requires: [build_deploy_docker]
       - create_kubernets_cluster:
           requires: [publish_docker_image]
+      # - deploy-app:
+      #     requires: [create_kubernets_cluster]
