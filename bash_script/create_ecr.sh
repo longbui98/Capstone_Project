@@ -10,4 +10,6 @@ aws ecr create-repository \
     --repository-name $PROJECT_NAME \
     --region $AWS_DEFAULT_REGION	
 
-docker push 717010040964.dkr.ecr.us-east-1.amazonaws.com/longbui-api:latest
+docker tag longbui-api:latest 717010040964.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$PROJECT_NAME
+
+docker push 717010040964.dkr.ecr.us-east-1.amazonaws.com/$PROJECT_NAME
