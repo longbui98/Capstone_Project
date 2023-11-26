@@ -79,5 +79,5 @@ workflows:
           requires: [linting-code]
       - publish_docker_image:
           requires: [build_deploy_docker]
-      - create_kubernets_cluster"
+      - create_kubernets_cluster:
           requires: [publish_docker_image]
