@@ -50,6 +50,7 @@ jobs:
     steps:
       - checkout
       - setup_remote_docker
+      - aws-cli/setup
       - run:
           name: Create ECR and publish docker image to ECR
           command: bash bash_script/create_ecr.sh
@@ -59,6 +60,7 @@ jobs:
       - image: python:3.7.3-stretch
     steps:
       - checkout
+      - aws-cli/setup
       - run:
           name: Install kubernetes utilities
           command: make install_kubernetes_utility
