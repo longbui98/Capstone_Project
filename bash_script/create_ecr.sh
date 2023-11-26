@@ -9,3 +9,6 @@ aws ecr get-login-password --region $AWS_DEFAULT_REGION | docker login --usernam
 aws ecr create-repository \
     --repository-name $PROJECT_NAME \
     --region $AWS_DEFAULT_REGION	
+
+docker tag $longbui-api:latest 717010040964.dkr.ecr.us-east-1.amazonaws.com/longbui-api:latest
+            docker push 717010040964.dkr.ecr.us-east-1.amazonaws.com/longbui-api:latest

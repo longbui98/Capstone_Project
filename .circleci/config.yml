@@ -51,13 +51,8 @@ jobs:
       - checkout
       - setup_remote_docker
       - run:
-          name: Create ECR
-          command: bash bash_script/create_cluster.sh
-      - run:
-          name: Publish docker image to ECR
-          command: |
-            docker tag $PROJECT_NAME:latest 717010040964.dkr.ecr.us-east-1.amazonaws.com/longbui-api:latest
-            docker push 717010040964.dkr.ecr.us-east-1.amazonaws.com/longbui-api:latest
+          name: Create ECR and publish docker image to ECR
+          command: bash bash_script/create_ecr.sh
 
   create_kubernets_cluster:
     docker:
