@@ -1,13 +1,15 @@
 version: 2.1
 
+orbs:
+    aws-cli: circleci/aws-cli@4.1.2
+
 jobs:
   linting-code:
     docker:
       - image: python:3.7.3-stretch
     working_directory: ~/repo
-
     steps:
-      - checkout # Download and cache dependencies
+      - checkout
       - restore_cache:
           keys:
             - v1-dependencies-{{ checksum "requirements.txt" }} # fallback to using the latest cache if no exact match is found
@@ -31,50 +33,43 @@ jobs:
             . ~/.devops/bin/activate
             make lint
 
-  build-deploy-docker:
-      docker:
-        - image: python:3.9.1-alpine3.12
-      working_directory: ~/repo
-      steps:
-        - checkout
-        - run:
-            name: Install dependences
-            command: |
-              apk update
-              apk add --update aws-cli
-              apk add openrc
-              apk add --no-cache \
-              docker
-              apk add --no-cache docker
-              dockerd --host=unix:///var/run/docker.sock
-        - run:
-            name: Docker build
-            command: |
-              docker build --tag=api .
-              docker image ls
-        - run: 
-            name: Create ECS
-            command: |
-              aws ecs create-cluster --cluster-name capstone-cluster
-        - run:
-            name: Push image to ECR
-            command: |
-              export AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID
-              export AWS_DEFAULT_REGION=$AWS_DEFAULT_REGION
-              
-              aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 717010040964.dkr.ecr.us-east-1.amazonaws.com
-              
-              aws ecr create-repository \
-              --repository-name $PROJECT_NAME \
-              --region $AWS_DEFAULT_REGION	
-              
-              docker build -t $PROJECT_NAME .
-              docker tag $PROJECT_NAME:latest 717010040964.dkr.ecr.us-east-1.amazonaws.com/$PROJECT_NAME:latest
-              docker push 717010040964.dkr.ecr.us-east-1.amazonaws.com/$PROJECT_NAME:latest
+  build_deploy_docker:
+    docker:
+      - image: cimg/base:stable
+    steps:
+      - checkout
+      - run:
+          name: Create docker image
+          command: |
+            docker build -t longbui-api .
+  
+  publish_docker_image:
+    docker:
+      - image: cimg/base:stable
+    steps:
+      - checkout
+      - run:
+          name: Create ECR
+          command: |
+            export AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID
+            export AWS_DEFAULT_REGION=$AWS_DEFAULT_REGION
+            export AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY
 
+            aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 717010040964.dkr.ecr.us-east-1.amazonaws.com
+
+            aws ecr create-repository \
+            --repository-name $PROJECT_NAME \
+            --region $AWS_DEFAULT_REGION	
+      - run:
+          name: Publish docker image to ECR
+        - run:
+            name: Publish image to ECR
+            command: |
+              docker tag $PROJECT_NAME:latest 717010040964.dkr.ecr.us-east-1.amazonaws.com/longbui-api:latest
+              docker push 717010040964.dkr.ecr.us-east-1.amazonaws.com/longbui-api:latest
 workflows:
   default:
     jobs:
       - linting-code
-      - build-deploy-docker:
+      - build_deploy_docker:
           requires: [linting-code]
