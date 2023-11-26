@@ -69,5 +69,7 @@ workflows:
   default:
     jobs:
       - linting-code
-      - publish_docker_image:
+      - build_deploy_docker:
           requires: [linting-code]
+      - publish_docker_image:
+          requires: [build_deploy_docker]
