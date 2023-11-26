@@ -62,14 +62,12 @@ jobs:
             --region $AWS_DEFAULT_REGION	
       - run:
           name: Publish docker image to ECR
-        - run:
-            name: Publish image to ECR
-            command: |
-              docker tag $PROJECT_NAME:latest 717010040964.dkr.ecr.us-east-1.amazonaws.com/longbui-api:latest
-              docker push 717010040964.dkr.ecr.us-east-1.amazonaws.com/longbui-api:latest
+          command: |
+            docker tag $PROJECT_NAME:latest 717010040964.dkr.ecr.us-east-1.amazonaws.com/longbui-api:latest
+            docker push 717010040964.dkr.ecr.us-east-1.amazonaws.com/longbui-api:latest
 workflows:
   default:
     jobs:
       - linting-code
-      - build_deploy_docker:
+      - publish_docker_image:
           requires: [linting-code]
