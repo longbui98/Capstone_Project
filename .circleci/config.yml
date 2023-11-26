@@ -38,6 +38,7 @@ jobs:
       - image: cimg/base:stable
     steps:
       - checkout
+      - setup_remote_docker
       - run:
           name: Create docker image
           command: |
@@ -48,6 +49,7 @@ jobs:
       - image: cimg/base:stable
     steps:
       - checkout
+      - setup_remote_docker
       - run:
           name: Create ECR
           command: |
