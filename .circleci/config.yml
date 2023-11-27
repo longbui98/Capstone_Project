@@ -100,7 +100,7 @@ jobs:
           name: Deploy application to ECS
           command: |
             aws eks update-kubeconfig --region us-east-1 --name capstone-project-cluster
-            bash shell_script/deploy_app.sh
+            bash bash_script/deploy_app.sh
 
 workflows:
   default:
