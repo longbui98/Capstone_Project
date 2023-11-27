@@ -2,16 +2,16 @@
 
 # Get Nodes details
 echo "############### Node details ###############"
-/.kubectl get nodes
+kubectl get nodes
 
 # Create the deployment and loadbalancer
 echo "############### Deploy app ###############"
-/.kubectl apply -f deploy.yml
+kubectl apply -f deploy.yml
 
 # # Get details for loadbalancer
 echo "############### Loadbalancer details ###############"
-/.kubectl get service/loadbalancer-service
+kubectl get service/loadbalancer-service
 
 # # Get details for deployment
 echo "############### Deploy, RS, SVC, Pod details ###############"
-/.kubectl get deploy,rs,svc,pods
+kubectl get deploy,rs,svc,pods
