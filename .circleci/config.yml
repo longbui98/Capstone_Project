@@ -82,6 +82,7 @@ jobs:
     steps:
       - checkout
       - aws-cli/setup
+      - kubernetes/install-kubectl
       - run:
           name: Install kubernetes utilities
           command: make install_kubernetes_utility
