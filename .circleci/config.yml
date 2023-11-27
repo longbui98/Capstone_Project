@@ -2,7 +2,7 @@ version: 2.1
 
 orbs:
     aws-cli: circleci/aws-cli@4.1.2
-
+    kubernetes: circleci/kubernetes@1.3
 commands:
   delete-cluster:
     description: Delete cluster in case of failing when creating cluster in ECS
@@ -96,6 +96,7 @@ jobs:
     steps:
       - checkout
       - aws-cli/setup
+      - kubernetes/install-kubectl
       - run:
           name: Deploy application to ECS
           command: |
