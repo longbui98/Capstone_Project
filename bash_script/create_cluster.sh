@@ -8,7 +8,6 @@ if /.eksctl utils describe-stacks --region=${aws_region} --cluster=${cluster_nam
 else
     echo "############### Creating Cluster ###############"
     /.eksctl create cluster --name ${cluster_name} --region=${aws_region}
-    echo "Created Cluster Successfully!"
     echo "############### Node Details ###############"
     /.kubectl get nodes
 fi
