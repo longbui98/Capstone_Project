@@ -35,7 +35,7 @@ metadata:
 spec:
   type: LoadBalancer
   selector:
-    app: sample-capstone-app
+    app: capstone-project
   ports:
     - protocol: TCP
       port: 8080
