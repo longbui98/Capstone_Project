@@ -1,7 +1,7 @@
 #!/user/bin/env/bash
 
 cluster_name=capstone-project
-aws_region=us-east-1
+aws_region=us-east-2
 
 if /.eksctl utils describe-stacks --region=${aws_region} --cluster=${cluster_name} | grep -q ${CLUSTER_NAME}; then
     echo "Cluster already exists!"
