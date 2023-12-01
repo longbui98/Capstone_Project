@@ -6,7 +6,7 @@ kubectl get nodes
 
 # Create the deployment and loadbalancer
 echo "############### Deploy app ###############"
-kubectl apply -f deploy.yml
+kubectl apply -f cluster_deploy/deploy.yml
 
 # # Get details for loadbalancer
 echo "############### Loadbalancer details ###############"
