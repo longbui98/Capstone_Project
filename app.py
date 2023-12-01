@@ -19,11 +19,6 @@ def scale(payload):
     return scaled_adhoc_predict
 
 @app.route("/")
-def home2():
-    html = ""
-    return html.format(format)
-    
-@app.route("/")
 def home():
     html = "<h3>Sklearn Prediction Home</h3>"
     return html.format(format)
