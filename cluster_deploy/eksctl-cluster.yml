@@ -4,7 +4,7 @@ metadata:
   name: hello-cluster
   region: us-east-1
 iam:
-  withOIDC: true
+  withOIDC: false
   serviceRoleARN: arn:aws:iam::717010040964:role/myEKSClusterRole
 managedNodeGroups:
   - name: ng-1
