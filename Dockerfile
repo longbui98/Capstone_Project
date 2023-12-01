@@ -11,7 +11,6 @@ COPY requirements.txt .
 ## Step 3:
 # Install packages from requirements.txt
 # hadolint ignore=DL3013
-if (x < y)
 RUN pip install --upgrade --no-cache-dir pip &&\ 
     pip install --trusted-host pypi.python.org -r requirements.txt
 ## Step 4:
