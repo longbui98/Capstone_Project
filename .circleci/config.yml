@@ -10,7 +10,7 @@ commands:
       - run:
           name: Delete cluster
           when: on_fail
-          command:  /.eksctl delete cluster --region=us-east-2 --name=capstone-project-cluster
+          command:  /.eksctl delete cluster --region=us-east-1 --name=capstone-project-cluster
             
 jobs:
   linting-code:
@@ -130,7 +130,7 @@ jobs:
       - run:
           name: "Deploy updated docker image on ECS"
           command: |
-            aws eks update-kubeconfig --region us-east-2 --name capstone-project
+            aws eks update-kubeconfig --region us-east-1 --name capstone-project
             bash shell_scripts/deploy_updated_app.sh
 workflows:
   default:
