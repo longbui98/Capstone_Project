@@ -91,7 +91,7 @@ jobs:
             docker tag longbui-api longtony/longbui-api:v1.0.0
             docker images
             echo $DOCKER_TOKEN | docker login -u $DOCKER_USER --password-stdin
-            docker push longbui-api longtony/longbui-api:v1.0.0
+            docker push longtony/longbui-api:v1.0.0
             
   deploy-app:
     docker:
