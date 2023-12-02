@@ -90,7 +90,7 @@ jobs:
             docker load -i /tmp/workspace/api_image.tar
             docker tag longbui-api longtony/longbui-api:v1.0.0
             docker images
-            docker run -d -p 8000:80 longbui-api:v1.0.0
+            docker run -d -p 8000:80 longtony/longbui-api:v1.0.0
             echo $DOCKER_TOKEN | docker login -u $DOCKER_USER --password-stdin
             docker push longtony/longbui-api:v1.0.0
             
