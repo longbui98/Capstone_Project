@@ -7,7 +7,7 @@ if /.eksctl utils describe-stacks --region=${aws_region} --cluster=${cluster_nam
     echo "Cluster already exists!"
 else
     echo "############### Creating Cluster ###############"
-    /.eksctl create cluster -f cluster_deploy/eksctl-cluster.yml
+    /.eksctl create cluster --name long-capstone-project --region us-east-1 --fargate
     echo "############### Node Details ###############"
     /.kubectl get nodes
 fi

@@ -42,6 +42,21 @@ jobs:
             . ~/.devops/bin/activate
             make lint
 
+  create_kubernets_cluster:
+    docker:
+      - image: python:3.7.3-stretch
+    steps:
+      - checkout
+      - aws-cli/setup
+      - kubernetes/install-kubectl
+      - run:
+          name: Install kubernetes utilities
+          command: make install_kubernetes_utility
+      - run:
+          name: Create cluster
+          command: bash bash_script/create_cluster.sh
+      - delete-cluster
+
   build_deploy_docker:
     docker:
       - image: cimg/base:stable
@@ -71,25 +86,12 @@ jobs:
           at: /tmp/workspace
       - run:
           name: Load image from archive
-          command: docker load -i /tmp/workspace/api_image.tar
-      - run:
-          name: Create ECR and publish docker image to ECR
-          command: bash bash_script/create_ecr.sh
-
-  create_kubernets_cluster:
-    docker:
-      - image: python:3.7.3-stretch
-    steps:
-      - checkout
-      - aws-cli/setup
-      - kubernetes/install-kubectl
-      - run:
-          name: Install kubernetes utilities
-          command: make install_kubernetes_utility
-      - run:
-          name: Create cluster
-          command: bash bash_script/create_cluster.sh
-      - delete-cluster
+          command: |
+            docker load -i /tmp/workspace/api_image.tar
+            docker tag longbui-api longtony/longbui-api:v1.0.0
+            docker images
+            echo $DOCKER_TOKEN | docker login -u <DOCKER_USER> --password-stdin
+            docker push longbui-api longtony/longbui-api:v1.0.0
             
   deploy-app:
     docker:
@@ -99,9 +101,8 @@ jobs:
       - aws-cli/setup
       - kubernetes/install-kubectl
       - run:
-          name: Deploy application to ECS
+          name: Deploy application to Kubernets
           command: |
-            aws eks update-kubeconfig --region us-east-2 --name capstone-project-cluster
             bash bash_script/deploy_app.sh
 
   publish_updated_docker_image:
@@ -134,14 +135,14 @@ workflows:
   default:
     jobs:
       - linting-code
-      - build_deploy_docker:
+      - create_kubernets_cluster:
           requires: [linting-code]
+      - build_deploy_docker:
+          requires: [create_kubernets_cluster]
       - publish_docker_image:
           requires: [build_deploy_docker]
-      - create_kubernets_cluster:
-          requires: [publish_docker_image]
       - deploy-app:
-          requires: [create_kubernets_cluster]
+          requires: [publish_docker_image]
       # - publish_updated_docker_image:
       #     requires: [deploy-app]
       # - deploy_updated_app:

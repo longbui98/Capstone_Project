@@ -6,12 +6,8 @@ kubectl get nodes
 
 # Create the deployment and loadbalancer
 echo "############### Deploy app ###############"
-kubectl apply -f cluster_deploy/deploy.yml
+kubectl create deployment longbui-api --image=longtony/longbui-api:v1.0.0 && kubectl expose deployment/longbui-api --type="LoadBalancer" --port 80
 
-# # Get details for loadbalancer
-echo "############### Loadbalancer details ###############"
-kubectl get service/loadbalancer-service
-
-# # Get details for deployment
+# Get details for deployment
 echo "############### Deploy, RS, SVC, Pod details ###############"
 kubectl get deploy,rs,svc,pods
