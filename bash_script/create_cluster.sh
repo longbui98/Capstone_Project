@@ -7,7 +7,7 @@ if /.eksctl utils describe-stacks --region=${aws_region} --cluster=${cluster_nam
     echo "Cluster already exists!"
 else
     echo "############### Creating Cluster ###############"
-    /.eksctl create cluster -f cluster_deploy/eksctl-cluster.yaml
+    /.eksctl create cluster -f cluster_deploy/eksctl-cluster.yml
     echo "############### Node Details ###############"
     /.kubectl get nodes
 fi

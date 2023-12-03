@@ -10,7 +10,7 @@ commands:
       - run:
           name: Delete cluster
           when: on_fail
-          command:  /.eksctl delete cluster --region=us-east-2 --name=capstone-project-cluster
+          command:  /.eksctl delete cluster --region=us-east-2 --name=hello-cluster
             
 jobs:
   linting-code:
