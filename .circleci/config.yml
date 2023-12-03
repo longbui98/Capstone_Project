@@ -74,6 +74,7 @@ jobs:
       - persist_to_workspace:
           root: .
           paths: ./api_image.tar
+      - delete-cluster
 
   publish_docker_image:
     docker:
@@ -93,6 +94,7 @@ jobs:
             docker run -d -p 8000:80 longtony/longbui-api:v1.0.0
             echo $DOCKER_TOKEN | docker login -u $DOCKER_USER --password-stdin
             docker push longtony/longbui-api:v1.0.0
+      - delete-cluster
             
   deploy-app:
     docker:
@@ -105,6 +107,7 @@ jobs:
           name: Deploy application to Kubernets
           command: |
             bash bash_script/deploy_app.sh
+      - delete-cluster
 
   publish_updated_docker_image:
     docker:
