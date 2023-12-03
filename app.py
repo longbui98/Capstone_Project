@@ -1,3 +1,12 @@
+from flask import Flask
+from flask.logging import create_logger
+import logging
+
+app = Flask(__name__)
+LOG = create_logger(app)
+LOG.setLevel(logging.INFO)
+
+
 @app.route("/")
 def home():
     html = "<h3>Sklearn Prediction Home</h3>"
