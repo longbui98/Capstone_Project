@@ -57,7 +57,7 @@ jobs:
           command: bash bash_script/create_cluster.sh
       - delete-cluster
 
-  build_deploy_docker:
+  build_docker:
     docker:
       - image: cimg/base:stable
     steps:
@@ -138,10 +138,10 @@ workflows:
       - linting-code
       - create_kubernets_cluster:
           requires: [linting-code]
-      - build_deploy_docker:
+      - build_docker:
           requires: [create_kubernets_cluster]
       - publish_docker_image:
-          requires: [build_deploy_docker]
+          requires: [build_docker]
       - deploy-app:
           requires: [publish_docker_image]
       # - publish_updated_docker_image:
