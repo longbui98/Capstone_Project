@@ -1,6 +1,6 @@
 #!/user/bin/env/bash
 
-cluster_name=hello-cluster
+cluster_name=hello-clusterv2
 aws_region=us-east-2
 
 if /.eksctl utils describe-stacks --region=${aws_region} --cluster=${cluster_name} | grep -q ${CLUSTER_NAME}; then
