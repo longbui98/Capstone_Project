@@ -2,8 +2,9 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: myapp-deployment
+  region: us-east-2
 spec:
-  replicas: 3
+  replicas: 2
   selector:
     matchLabels:
       app: longbui-api:v1.0.0
