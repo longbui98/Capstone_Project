@@ -42,21 +42,6 @@ jobs:
             . ~/.devops/bin/activate
             make lint
 
-  create_kubernets_cluster:
-    docker:
-      - image: python:3.7.3-stretch
-    steps:
-      - checkout
-      - aws-cli/setup
-      - kubernetes/install-kubectl
-      - run:
-          name: Install kubernetes utilities
-          command: make install_kubernetes_utility
-      - run:
-          name: Create cluster
-          command: bash bash_script/create_cluster.sh
-      - delete-cluster
-
   build_docker:
     docker:
       - image: cimg/base:stable
@@ -95,6 +80,21 @@ jobs:
             echo $DOCKER_TOKEN | docker login -u $DOCKER_USER --password-stdin
             docker push longtony/longbui-api:v1.0.0
       - delete-cluster
+
+  create_kubernets_cluster:
+    docker:
+      - image: python:3.7.3-stretch
+    steps:
+      - checkout
+      - aws-cli/setup
+      - kubernetes/install-kubectl
+      - run:
+          name: Install kubernetes utilities
+          command: make install_kubernetes_utility
+      - run:
+          name: Create cluster
+          command: bash bash_script/create_cluster.sh
+      - delete-cluster  
             
   deploy-app:
     docker:
@@ -139,14 +139,14 @@ workflows:
   default:
     jobs:
       - linting-code
-      - create_kubernets_cluster:
-          requires: [linting-code]
       - build_docker:
-          requires: [create_kubernets_cluster]
+          requires: [linting-code]
       - publish_docker_image:
           requires: [build_docker]
-      - deploy-app:
+      - create_kubernets_cluster:
           requires: [publish_docker_image]
+      - deploy-app:
+          requires: [create_kubernets_cluster]
       # - publish_updated_docker_image:
       #     requires: [deploy-app]
       # - deploy_updated_app:
