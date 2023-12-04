@@ -2,7 +2,7 @@
 
 # Create the deployment and loadbalancer
 echo "Deploy updated app:"
-kubectl set image deployments/server  back-end=longbui-api-updated:lastest
+kubectl set image deployments/server  back-end=longbui-api-updated:v1.0.0
 
 # Get details for loadbalancer
 echo "Loadbalancer details:"

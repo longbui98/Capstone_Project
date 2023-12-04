@@ -14,7 +14,7 @@ kubectl create deployment longbui-api --image=longtony/longbui-api:v1.0.0
 
 # Forward the container port to a host
 echo "############### Forward port to a host ###############"
-kubectl expose deployment/longbui-api --type="LoadBalancer" --port=8080 --port 80
+kubectl expose deployment/longbui-api --type="LoadBalancer" --port=8080 --target-port=8080
 
 # Get details for deployment
 echo "############### Deploy, RS, SVC, Pod details ###############"
