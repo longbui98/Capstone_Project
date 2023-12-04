@@ -16,7 +16,7 @@ spec:
         - name: myapp-container
           image: longtony/longbui-api:v1.0.0
           ports:
-            - containerPort: 8080
+            - containerPort: 8000
 
 
 ---
@@ -31,5 +31,5 @@ spec:
     app: longbui-api
   ports:
     - protocol: TCP
-      port: 8080
-      targetPort: 8080
+      port: 8000
+      targetPort: 80
