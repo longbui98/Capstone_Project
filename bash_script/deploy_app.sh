@@ -1,5 +1,9 @@
 #!/user/bin/env/bash
 
+# Check config
+echo "############## Kubernet config ##############"
+kubectl config view
+
 # Get Nodes details
 echo "############### Node details ###############"
 kubectl get nodes
