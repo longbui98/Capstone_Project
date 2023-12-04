@@ -81,7 +81,7 @@ jobs:
             docker push longtony/longbui-api:v1.0.0
       - delete-cluster
 
-  create_kubernets_cluster:
+  create_cluster_deploy_app:
     docker:
       - image: python:3.7.3-stretch
     steps:
@@ -94,21 +94,11 @@ jobs:
       - run:
           name: Create cluster
           command: bash bash_script/create_cluster.sh
-      - delete-cluster  
-            
-  deploy-app:
-    docker:
-      - image: python:3.7.3-stretch
-    steps:
-      - checkout
-      - aws-cli/setup
-      - kubernetes/install-kubectl
       - run:
           name: Deploy application to Kubernets
-          command: |
-            bash bash_script/deploy_app.sh
-      - delete-cluster
-
+          command: bash bash_script/deploy_app.sh
+      - delete-cluster  
+            
   publish_updated_docker_image:
     docker:
       - image: cimg/base:stable
@@ -143,10 +133,8 @@ workflows:
           requires: [linting-code]
       - publish_docker_image:
           requires: [build_docker]
-      - create_kubernets_cluster:
+      - create_cluster_deploy_app:
           requires: [publish_docker_image]
-      - deploy-app:
-          requires: [create_kubernets_cluster]
       # - publish_updated_docker_image:
       #     requires: [deploy-app]
       # - deploy_updated_app:
